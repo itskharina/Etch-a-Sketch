@@ -1,8 +1,8 @@
 const container = document.querySelector('.container')
-let newGrid = document.querySelector('.newgrid')
 let slider = document.querySelector('.slider')
 let sliderValue = document.querySelector('.slider-value')
 sliderValue.textContent = `Size: ${slider.value} x ${slider.value}`;
+let resetBtn = document.querySelector('.reset-btn')
 
 // creating initial grid
 function defaultGrid() {
@@ -18,9 +18,8 @@ slider.addEventListener('input', function() {
     sliderValue.textContent = `Size: ${slider.value} x ${slider.value}`;
 })
 
-// making the grid change size when slider is used
-slider.addEventListener('change', function() {
-    let squares = slider.value;
+// function that changes grid size
+function makeGrid(squares) {
     container.textContent = "";
     container.style.gridTemplateColumns = `repeat(${squares}, 1fr)`;
     container.style.gridTemplateRows = `repeat(${squares}, 1fr)`;
@@ -28,4 +27,42 @@ slider.addEventListener('change', function() {
         let square = document.createElement('div');
         container.appendChild(square).className = "square";
     }
+}
+
+// making the grid change size when slider is used
+slider.addEventListener('change', function() {
+    makeGrid(slider.value)
 })
+
+let drawing = false;
+window.addEventListener("mousedown", function() {
+   drawing = true;
+});
+window.addEventListener("mouseup", function() {
+   drawing = false;
+});
+
+// function to allow user to draw when they click on a square
+function draw() {
+        container.addEventListener('mouseover', function(e) {
+        if (drawing) {
+            e.target.style.background = 'black';
+        }
+    })
+}
+draw();
+
+// making grid reset when button is pressed
+resetBtn.addEventListener('click', function() {
+    clearGrid();
+    makeGrid(slider.value)
+    draw();
+})
+
+// function to clear grid
+function clearGrid() {
+    let clear = document.querySelectorAll('.square');
+    clear.forEach(item => {
+        item.remove();
+    });
+};

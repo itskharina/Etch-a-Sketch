@@ -4,14 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins:wght@300&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="icon.png">
+    <title>Etch-A-Sketch</title>
 </head>
 <body>
     <h1 class="title">Etch-A-Sketch</h1>
-    <div class="container"></div>
-    <div class="controls">
-        <div class="slider-value"></div>
-        <input type="range" class="slider" min="4" max="64" value="16">
+    <div class="all">
+        <div class="controls">
+            <div class="slidercontrol">
+                <div class="slider-value"></div>
+                <input type="range" class="slider" min="4" max="64" value="16">
+            </div>
+            <div class="button">
+                <button class="reset-btn">Reset</button>
+            </div>
+        </div>
+        <div class="container"></div>
     </div>
     <script src="javascript.js"></script>
 </body>
