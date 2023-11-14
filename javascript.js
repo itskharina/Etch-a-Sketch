@@ -3,6 +3,9 @@ let slider = document.querySelector('.slider')
 let sliderValue = document.querySelector('.slider-value')
 sliderValue.textContent = `Size: ${slider.value} x ${slider.value}`;
 let resetBtn = document.querySelector('.reset-btn')
+let eraserBtn = document.querySelector('.eraser-btn')
+let blackBtn = document.querySelector('.black-btn')
+let rainbowBtn = document.querySelector('.rainbow-btn')
 
 // creating initial grid
 function defaultGrid() {
@@ -34,30 +37,56 @@ slider.addEventListener('change', function() {
     makeGrid(slider.value)
 })
 
-let drawing = false;
+/* let isDrawing = false;
 window.addEventListener("mousedown", function() {
-   drawing = true;
+   isDrawing = true;
 });
 window.addEventListener("mouseup", function() {
-   drawing = false;
-});
+   isDrawing = false;
+}); */
+ 
+// allows user to draw with a black colour
+blackBtn.addEventListener('click', function () {
+/*     isDrawing = false; */
+    let colour = 'black'
+    draw(colour)
+})
 
-// function to allow user to draw when they click on a square
-function draw() {
-        container.addEventListener('mouseover', function(e) {
-        if (drawing) {
-            e.target.style.background = 'black';
-        }
-    })
-}
-draw();
+//allows user to draw with a rainbow colour
+rainbowBtn.addEventListener('click', function () {
+  /*   isDrawing = false; */
+    let colour = 'rainbow'
+    draw(colour)
+})
 
 // making grid reset when button is pressed
 resetBtn.addEventListener('click', function() {
+    isDrawing = false;
     clearGrid();
     makeGrid(slider.value)
-    draw();
+    draw(colour);
 })
+
+// adding eraser button functionality
+eraserBtn.addEventListener('mouseover', function(e) {
+/*     isDrawing = false; */
+    let colour = 'white'
+    draw(colour)
+})
+
+
+// function to allow user to draw
+function draw(colour) {
+        container.addEventListener('mouseover', function(e) {
+        if (colour === 'black') {
+            e.target.style.background = 'black'
+        } else if (colour === 'white') {
+            e.target.style.background = 'white'
+        } else if (colour === 'rainbow') {
+            e.target.style.background = `rgb(${rainbowColour()}, ${rainbowColour()}, ${rainbowColour()})`
+        }
+    })
+}
 
 // function to clear grid
 function clearGrid() {
@@ -66,3 +95,7 @@ function clearGrid() {
         item.remove();
     });
 };
+
+function rainbowColour() {
+    return Math.floor((Math.random() * 256));
+}
